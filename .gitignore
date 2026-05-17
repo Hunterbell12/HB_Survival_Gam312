@@ -1,0 +1,17 @@
+.vs/
+Binaries/
+DerivedDataCache/
+Intermediate/
+Saved/
+*.VC.db
+*.VC.opendb
+*.sln
+*.opensdf
+*.sdf
+*.log
+*.tmp
+*.vsconfig
+Content/STF
+Content/__ExternalObjects__
+Content/__ExternalActors__
+Content/LevelPrototyping
