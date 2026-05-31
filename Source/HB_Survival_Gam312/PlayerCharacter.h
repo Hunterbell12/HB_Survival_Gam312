@@ -7,6 +7,7 @@
 #include "Camera/CameraComponent.h"
 #include "Resource_M.h"
 #include "Kismet/GameplayStatics.h"
+#include "BuildingPart.h"
 #include "PlayerCharacter.generated.h"
 
 
@@ -83,6 +84,23 @@ public:
 	UPROPERTY(EditAnywhere, Category = "HitMarker")
 		UMaterialInterface* hitDecal;
 
+		// Array used to store the building objects that can be built by the player.
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Building Supplies")
+		TArray<int> BuildingArray;
+
+		// Boolean used to check if the player is currently building something, which prevents them from building multiple objects at once.
+	UPROPERTY()
+		bool isBuilding;
+
+		// The class of the building part to spawn, which is set in the editor and used in the SpawnBuilding function.
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+		TSubclassOf<ABuildingPart> BuildingPartClass;
+
+		// The building part that is spawned when the player builds something, which is used in the RotateBuilding function to rotate the object while placing it.
+	UPROPERTY()
+		ABuildingPart* spawnedPart;
+
+		// Functions to set the player stats, which can be called from Blueprints to change the stats when certain events happen (like taking damage or eating food).
 	UFUNCTION(BlueprintCallable)
 		void SetHealth(float amount);
 
@@ -98,4 +116,14 @@ public:
 	// Adds the collected amount to the correct resource entry.
 	UFUNCTION()
 	void GiveResource(float amount, FString resourceType);
+
+	// Sets the resource amounts for the building menu and checks if the player has enough to build the selected object.
+	UFUNCTION(BlueprintCallable)
+		void UpdateResources(float woodAmount, float stoneAmount, FString buildingObject);
+
+	UFUNCTION(BlueprintCallable)
+		void SpawnBuilding(int buildingID, bool& isSuccess);
+
+	UFUNCTION()
+		void RotateBuilding();
 };
