@@ -8,6 +8,7 @@
 #include "Resource_M.h"
 #include "Kismet/GameplayStatics.h"
 #include "BuildingPart.h"
+#include "PlayerWidget.h"
 #include "PlayerCharacter.generated.h"
 
 
@@ -99,6 +100,9 @@ public:
 		// The building part that is spawned when the player builds something, which is used in the RotateBuilding function to rotate the object while placing it.
 	UPROPERTY()
 		ABuildingPart* spawnedPart;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		UPlayerWidget* playerUI;
 
 		// Functions to set the player stats, which can be called from Blueprints to change the stats when certain events happen (like taking damage or eating food).
 	UFUNCTION(BlueprintCallable)
