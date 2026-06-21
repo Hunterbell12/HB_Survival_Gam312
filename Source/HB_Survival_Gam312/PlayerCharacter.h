@@ -9,6 +9,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "BuildingPart.h"
 #include "PlayerWidget.h"
+#include "ObjectiveWidget.h"
 #include "PlayerCharacter.generated.h"
 
 
@@ -103,6 +104,15 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		UPlayerWidget* playerUI;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		UObjectiveWidget* objWidget;
+
+	UPROPERTY()
+		float objectsBuilt;
+
+	UPROPERTY()
+		float matsCollected;
 
 		// Functions to set the player stats, which can be called from Blueprints to change the stats when certain events happen (like taking damage or eating food).
 	UFUNCTION(BlueprintCallable)

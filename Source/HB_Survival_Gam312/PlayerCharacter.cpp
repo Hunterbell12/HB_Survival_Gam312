@@ -36,6 +36,12 @@ void APlayerCharacter::BeginPlay()
 	// Repeatedly lower hunger and update stamina/health while the game runs.
 	FTimerHandle StatsTimerHandle;
 	GetWorldTimerManager().SetTimer(StatsTimerHandle, this, &APlayerCharacter::DecreaseStats, 2.0f, true);
+
+	if (objWidget)
+	{
+		objWidget->UpdatebuildObj(0.0f);
+		objWidget->UpdatematOBJ(0.0f);
+	}
 }
 
 // Called every frame
@@ -251,6 +257,10 @@ void APlayerCharacter::FindObjects()
 					{
 						GiveResource(resourceValue, hitName);
 
+						matsCollected = matsCollected + resourceValue;
+
+						objWidget->UpdatematOBJ(matsCollected);
+
 						check(GEngine != nullptr);
 						GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("Resource Collected"));
 
@@ -272,6 +282,9 @@ void APlayerCharacter::FindObjects()
 	else 
 	{
 		isBuilding = false;
+		objectsBuilt = objectsBuilt + 1;
+
+		objWidget->UpdatebuildObj(objectsBuilt);
 	}
 
 }
